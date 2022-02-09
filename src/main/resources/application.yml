@@ -1,0 +1,28 @@
+server:
+  port: 4445
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:development}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: development
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://motty.db.elephantsql.com:5432/hhjogumk?currentSchema=treinamento}
+    username: ${DB_USER:hhjogumk}
+    password: ${DB_PASSWORD:7lfTGsNslOJfqFG6pQhFQk7h5KWbMN1w}
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      minimum-idle: 1
+      maximum-pool-size: 3
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
