@@ -26,8 +26,29 @@ public class RestErrorHandler extends DefaultErrorAttributes {
                 .orElseThrow(() -> new Exception("UNKNOWN_ERROR"));
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.BAD_REQUEST);
-        response.put("message", objectError.getDefaultMessage() + "_");
+        response.put("message", objectError.getDefaultMessage());
         return response;
     }
+
+    @ResponseBody
+    @ExceptionHandler(TreinamentoDefaultException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public Map<String, Object> processTreinamentoException(TreinamentoDefaultException ex) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        if(ex.getMessage().contains("NOT_FOUND")) {
+            response.put("status", HttpStatus.NOT_FOUND);
+        } else {
+            response.put("status", HttpStatus.BAD_REQUEST);
+        }
+
+        response.put("message", ex.getMessage());
+
+        return response;
+
+    }
+
+
 
 }

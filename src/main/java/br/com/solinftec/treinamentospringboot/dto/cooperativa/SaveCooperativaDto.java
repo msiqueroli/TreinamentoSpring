@@ -16,7 +16,7 @@ public class SaveCooperativaDto {
     @NotNull(message = "NOME_COULD_NOT_BE_NULL")
     private String nome;
     @NotNull(message = "EMAIL_COULD_NOT_BE_NULL")
-    @Email(message = "NOT_A_VALID_EMAIL")
+    @Email(message = "INVALID_EMAIL:${validatedValue}")
     private String email;
     private List<Long> fazendeiros;
 

@@ -1,0 +1,5 @@
+1- Fazer endpoint para gerar monitoramento, atualizar também a posição do equipamento na sua tabela.
+2- Calcular total_aplicacao de acordo com rate_aplicacao e area da fazenda ao cadastrar ordem de serviço.
+    - ÁREA DO TALHAO X RATE APLICAÇÃO
+3- Ao buscar equipamento verificar último monitoramento e colocar se ele está online ou não.
+	ele estára online se recebeu monitoramento nos últimos 15 minutos.
