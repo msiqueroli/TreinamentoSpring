@@ -2,9 +2,13 @@ package br.com.solinftec.treinamentospringboot.dto.fazenda;
 
 import br.com.solinftec.treinamentospringboot.dto.fazendeiro.FazendeiroDto;
 import br.com.solinftec.treinamentospringboot.model.Fazenda;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GetAllFazendaDto {
     private Long id;
     private String descricao;

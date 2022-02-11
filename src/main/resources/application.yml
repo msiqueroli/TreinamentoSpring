@@ -4,6 +4,9 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE:development}
 
+configuration:
+    url: ${URL:http://localhost:4445/}
+
 ---
 spring:
   config:

@@ -3,3 +3,11 @@
     - ÁREA DO TALHAO X RATE APLICAÇÃO
 3- Ao buscar equipamento verificar último monitoramento e colocar se ele está online ou não.
 	ele estára online se recebeu monitoramento nos últimos 15 minutos.
+
+-----------------------------------------------------------------------------------------------------------
+
+Desafio: Receber como parametro do endpoint um LocalDateTime.
+
+Endpoint no resource ordem de serviço que filtre as ordens pela data de execucao;
+Endpoint para calcular a área total aplicada de cada cooperativa por dia;
+

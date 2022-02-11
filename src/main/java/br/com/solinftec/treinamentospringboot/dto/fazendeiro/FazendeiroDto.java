@@ -1,10 +1,14 @@
 package br.com.solinftec.treinamentospringboot.dto.fazendeiro;
 
 import br.com.solinftec.treinamentospringboot.model.Fazendeiro;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FazendeiroDto {
     private Long id;
     private String nome;

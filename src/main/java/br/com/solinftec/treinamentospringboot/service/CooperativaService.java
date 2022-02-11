@@ -2,17 +2,28 @@ package br.com.solinftec.treinamentospringboot.service;
 
 import br.com.solinftec.treinamentospringboot.configuration.TreinamentoDefaultException;
 import br.com.solinftec.treinamentospringboot.dto.cooperativa.CooperativaDto;
+import br.com.solinftec.treinamentospringboot.dto.cooperativa.CooperativaParaSalvarDto;
 import br.com.solinftec.treinamentospringboot.dto.cooperativa.GetAllCooperativaDto;
 import br.com.solinftec.treinamentospringboot.dto.cooperativa.SaveCooperativaDto;
+import br.com.solinftec.treinamentospringboot.dto.fazenda.GetAllFazendaDto;
 import br.com.solinftec.treinamentospringboot.model.Cooperativa;
 import br.com.solinftec.treinamentospringboot.model.Fazendeiro;
 import br.com.solinftec.treinamentospringboot.repository.CooperativaRepository;
+import br.com.solinftec.treinamentospringboot.utils.RestUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +31,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CooperativaService {
+
+    @Value("${configuration.url}")
+    private String url;
 
     private final CooperativaRepository repository;
 
@@ -29,6 +43,7 @@ public class CooperativaService {
                 .map(cooperativa -> new GetAllCooperativaDto(cooperativa))
                 .collect(Collectors.toList());
     }
+
 
     public List<Fazendeiro> getFazendeirosDaCooperativa(Long idCooperativa) {
 
@@ -87,4 +102,37 @@ public class CooperativaService {
                 .stream().map(CooperativaDto::new)
                 .collect(Collectors.toList());
     }
+
+    public List<GetAllFazendaDto> getAllFazendasByHttpRequest() {
+
+        RestTemplate rest = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        CooperativaParaSalvarDto minhaCooperativa = new CooperativaParaSalvarDto();
+        minhaCooperativa.setEmail("exemplo@email.com");
+        minhaCooperativa.setNome("Cooperativa Exemplo");
+        minhaCooperativa.setFazendeiros(Arrays.asList(2L));
+
+        // Save Cooperativa
+        minhaCooperativa = RestUtils.postForObject(url + "cooperativa", CooperativaParaSalvarDto.class, minhaCooperativa);
+
+        // Get Cooperativa
+        List<GetAllFazendaDto> allFazendasList = RestUtils.getForList(url+"fazenda", GetAllFazendaDto.class, "token");
+
+        //Delete Cooperativa
+        rest.delete(url+"/cooperativa/9");
+
+        //Get a list of object
+        GetAllFazendaDto[] allFazendas = rest.getForEntity(url+"fazenda", GetAllFazendaDto[].class, entity).getBody();
+
+        //Get an object
+        rest.getForObject(url+"cooperativa/1", CooperativaDto.class);
+
+        return Arrays.stream(allFazendas).collect(Collectors.toList());
+    }
+
+
 }

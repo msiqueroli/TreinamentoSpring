@@ -4,6 +4,7 @@ import br.com.solinftec.treinamentospringboot.configuration.TreinamentoDefaultEx
 import br.com.solinftec.treinamentospringboot.dto.cooperativa.CooperativaDto;
 import br.com.solinftec.treinamentospringboot.dto.cooperativa.GetAllCooperativaDto;
 import br.com.solinftec.treinamentospringboot.dto.cooperativa.SaveCooperativaDto;
+import br.com.solinftec.treinamentospringboot.dto.fazenda.GetAllFazendaDto;
 import br.com.solinftec.treinamentospringboot.model.Cooperativa;
 import br.com.solinftec.treinamentospringboot.model.Fazendeiro;
 import br.com.solinftec.treinamentospringboot.service.CooperativaService;
@@ -103,4 +104,8 @@ public class CooperativaResource {
         return ResponseEntity.ok().body(service.getCooperativasAtivas());
     }
 
+    @GetMapping("/rest/fazendas")
+    public ResponseEntity<List<GetAllFazendaDto>> getAllFazendasByHttpRequest() {
+        return ResponseEntity.ok().body(service.getAllFazendasByHttpRequest());
+    }
 }

@@ -1,9 +1,13 @@
 package br.com.solinftec.treinamentospringboot.dto.cooperativa;
 
 import br.com.solinftec.treinamentospringboot.model.Cooperativa;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GetAllCooperativaDto {
 
     private Long id;
